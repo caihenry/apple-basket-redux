@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>弹出提示消息</title>
+
+    <link rel="stylesheet" href="../../src/styles/jquery.xctips.css" />
+
+    <script type="text/javascript" src="../../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/jquery.xctips.js"></script>
+
+    <style>
+        *{padding:0; margin:0}
+        div.v{width:200px; margin:0 auto; background:#060; color:#FFF; text-align:center; margin-top:10px; padding:10px; cursor:pointer}
+    </style>
+
+</head>
+
+<body style="padding-top:50px">
+
+<div class="v" onclick="xcsoft.info('请填写你的相关信息哟',3000)">
+    提示消息[3秒后自动消失]
+</div>
+<div class="v" onclick="xcsoft.success('你的信息更新完毕',1500)">
+    成功消息[1.5秒后自动消失]
+</div>
+<div class="v" onclick="xcsoft.error('你还有信息未填写',2000)">
+    失败消息[2秒后自动消失]
+</div>
+<div class="v" onclick="xcsoft.loading('正在更新中，请等待...')">
+    加载消息[不会自动消失]
+</div>
+<div class="v" onclick="xcsoft._hide()">
+    强制隐藏消息
+</div>
+
+<script type="text/javascript">
+    //为 tips 提示框自定义 CSS,以下为默认
+    xcsoft.tipsCss = {
+        height: '44px',
+        fontSize: '16px'
+    };
+    //隐藏、显示速度 ，默认 fast
+    xcsoft.tipsHide=xcsoft.tipsShow=100;
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 .appleItem {
-    width: 420px;
+    width: 98%;
     margin: 10px auto;
     border-radius: 4px;
     border: 1px solid #ddd;
@@ -10,36 +10,39 @@
 
     .apple {
         flex-grow: 2;
+        padding: 10px 3px;
     }
     .info {
-        flex-grow: 15;
+        flex-grow: 16;
         .name {
-            padding: 6px 0;
-            font-size: 20px;
-            color: #069;
+            padding: 10px 3px;
+            font-size: 12px;
+            color: #dcdcdc;
             font-weight: 500;
         }
         .weight {
-            font-size: 16px;
+            padding: 3px 3px;
+            font-size: 12px;
             font-weight: 200;
+            color: #c09853;
         }
     }
     .btn-div {
-        flex-grow: 2;
+        flex-grow: 3;
         button {
+            width: 90%;
             border: none;
-            background-color: #3498db;
+            background-color: #aa0000;
             color: #fff;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
-
-            padding: 10px 24px;
+            padding: 10px 3px;
             border-radius: 6px;
-            margin: 18px auto;
+            margin: 3px auto;
             outline: none;
         }
         button:hover {
-            background-color: #5dade2
+            background-color: #aa0060;
         }
     }
 }

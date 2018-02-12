@@ -12,7 +12,9 @@ class AppleItem extends React.Component {
 
         return (
             <div className="appleItem">
-                <div className="apple"><img src={require('../images/apple.png')} alt=""/></div>
+                <div className="apple">
+                    <img src={require('../images/apple.png')} alt="红富士" title="红富士"/>
+                </div>
                 <div className="info">
                     <div className="name">红苹果 - { apple.id }号</div>
                     <div className="weight">{ apple.weight }克</div>
@@ -26,7 +28,8 @@ class AppleItem extends React.Component {
 }
 
 AppleItem.propTypes = {
-    eatApple: React.PropTypes.func.isRequired,   // 吃苹果的回调，已通过bindActionCreators包装成dispatch(action)
+    // 吃苹果的回调，已通过bindActionCreators包装成dispatch(action)
+    eatApple: React.PropTypes.func.isRequired,
     apple: React.PropTypes.object.isRequired     // 单个苹果的数据
 };
 

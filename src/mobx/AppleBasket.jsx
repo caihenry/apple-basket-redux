@@ -10,15 +10,21 @@ class AppleBusket extends React.Component {
     /** 获取未吃苹果的组件数组*/
     getAppleItem() {
         let data = [];
-        this.props.store.apples.forEach(apple => {
+        this.props.store.apples.reverse().forEach(apple => {
             if (!apple.isEaten) {
-                data.push( <AppleItem apple={apple} eatApple={this.props.store.eatApple} key={apple.id}/> )
+                data.push( <AppleItem apple={apple}
+                                      eatApple={this.props.store.eatApple} key={apple.id}/> )
             }
         });
 
         if(!data.length) data.push(<div className="empty-tip" key="empty">苹果篮子空空如也</div>);
 
         return data;
+    }
+
+    componentDidMount() {
+        // rem布局，根据屏幕宽度自适应字体大小
+        document.getElementById('app').style.fontSize = parseInt(window.innerWidth / 60) + 'px'
     }
 
     render(){
@@ -32,7 +38,10 @@ class AppleBusket extends React.Component {
         return (
             <div className="appleBusket">
                 <div className="title">苹果篮子</div>
-
+                <div className="btn-div">
+                    <button  className={isPicking ? 'disabled' : ''}
+                             onClick={() => pickApple() } >{buttonText}</button>
+                </div>
                 <div className="stats">
                     <div className="section">
                         <div className="head">当前</div>
@@ -47,10 +56,6 @@ class AppleBusket extends React.Component {
 
                 <div className="appleList">
                     { this.getAppleItem() }
-                </div>
-
-                <div className="btn-div">
-                    <button  className={isPicking ? 'disabled' : ''}  onClick={() => pickApple() } >{buttonText}</button>
                 </div>
             </div>
         );

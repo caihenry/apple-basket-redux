@@ -11,6 +11,7 @@ let additionalPaths = [];
 
 module.exports = {
   additionalPaths: additionalPaths,
+  host: defaultSettings.host,
   port: defaultSettings.port,
   debug: true,
   devtool: 'eval',

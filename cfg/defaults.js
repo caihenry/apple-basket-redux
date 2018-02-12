@@ -8,6 +8,7 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
+const dfltHost = '192.168.1.4';
 const dfltPort = 8000;
 
 /**
@@ -59,6 +60,7 @@ function getDefaultModules() {
 module.exports = {
   srcPath: srcPath,
   publicPath: '/assets/',
+  host: dfltHost,
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };

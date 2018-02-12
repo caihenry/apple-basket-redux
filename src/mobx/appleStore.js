@@ -1,5 +1,7 @@
 import {observable, computed, action, autorun} from 'mobx';
-
+import '../../lib/jquery.min'
+import '../../lib/jquery.xctips'
+import '../styles/jquery.xctips.css'
 
 class appleStore {
 
@@ -20,7 +22,7 @@ class appleStore {
             isEaten: false
         }
     ];
-    @observable newAppleId = 3;
+
     @observable isPicking = false;
     @observable buttonText = '摘苹果';
 
@@ -41,7 +43,7 @@ class appleStore {
         };
         this.apples.forEach(apple => {
             let selector = apple.isEaten ? 'appleEaten':'appleNow';
-            status[selector].quantity ++;
+            status[selector].quantity++;
             status[selector].weight += apple.weight;
         });
         return status;
@@ -53,39 +55,43 @@ class appleStore {
 
         /** 如果正在摘苹果，则结束这个thunk, 不执行摘苹果 */
         if (this.isPicking) {
+            console.log('正在采摘，结束这个thunk!');
             return;
         }
 
         this.isPicking = true;
         this.buttonText = '正在采摘...';
-        fetch('https://hacker-news.firebaseio.com/v0/jobstories.json')
+        fetch('../data/fetch_apple.json')
             .then(res => {
-                /** 备注这里的url只是测试用的，这个是之前hackernews的api, 这里只是确保接口是通的，至于数据还是自己mock */
+                /* 这里只是确保接口是通的，至于数据还是自己mock */
                 let weight = Math.floor(200 + Math.random() * 50);
                 this.isPicking = false;
                 this.buttonText = '摘苹果';
-                this.apples.push({
-                    id: this.newAppleId++,
+                let new_apple = {
+                    id: this.apples.length,
                     weight: weight,
                     isEaten: false
-                });
+                }
+                this.apples.push(new_apple);
+                console.log('采摘苹果id: '+new_apple.id);
+            }).catch((e) => {
+                this.isPicking = false;
+                this.buttonText = '摘苹果';
+                xcsoft.error('没有摘到苹果，请检查网络问题！', 3000);
             });
     }
 
     /* 这里需要写成箭头函数的形式，这样此函数从父组件传递到子组件的时候才能调用成功*/
     @action eatApple = (appleId)=>{
-
-        let targetIndex = '';
-        this.apples.forEach((apple,index)=>{
+        console.log('准备吃苹果id: '+appleId);
+        this.apples.some(function(apple){
             if(apple.id == appleId){
-                targetIndex = index
+                apple.isEaten = true;
+                console.log('吃掉苹果id: '+apple.id);
+                return true;
             }
         });
-        this.apples[targetIndex].isEaten = true;
     }
-
-
-
 
 }
 
