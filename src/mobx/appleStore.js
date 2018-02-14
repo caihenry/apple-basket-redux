@@ -26,9 +26,6 @@ class appleStore {
     @observable isPicking = false;
     @observable buttonText = '摘苹果';
 
-
-
-
     /**  计算当前已吃和未吃苹果的状态 */
     @computed get status(){
         let status = {
@@ -61,25 +58,51 @@ class appleStore {
 
         this.isPicking = true;
         this.buttonText = '正在采摘...';
-        fetch('../data/fetch_apple.json')
-            .then(res => {
-                /* 这里只是确保接口是通的，至于数据还是自己mock */
-                let weight = Math.floor(200 + Math.random() * 50);
-                this.isPicking = false;
-                this.buttonText = '摘苹果';
-                let new_apple = {
-                    id: this.apples.length,
-                    weight: weight,
-                    isEaten: false
-                }
-                this.apples.push(new_apple);
-                console.log('采摘苹果id: '+new_apple.id);
-            }).catch((e) => {
-                this.isPicking = false;
-                this.buttonText = '摘苹果';
+        let url = '../data/fetch_apple.json';
+        if(self.fetch) {
+            // 使用 fetch 框架处理
+            fetch(url)
+                .then(res => {
+                    /* 这里只是确保接口是通的，至于数据还是自己mock */
+                    let weight = Math.floor(200 + Math.random() * 50);
+                    let new_apple = {
+                        id: this.apples.length,
+                        weight: weight,
+                        isEaten: false
+                    };
+                    this.apples.push(new_apple);
+                    console.log('fetch采摘苹果id: '+new_apple.id);
+                }).catch((e) => {
                 xcsoft.error('没有摘到苹果，请检查网络问题！', 3000);
             });
-    }
+        } else {
+            // 使用 XMLHttpRequest 或者其他封装框架处理
+            var _this = this;
+            let request = new XMLHttpRequest();
+            request.open("GET", url);
+            request.onload = function() {
+                if(request.status == 200) {
+                    let text = request.responseText;
+                    let object = JSON.parse(text);
+                    /* 这里只是确保接口是通的，至于数据还是自己mock */
+                    let weight = Math.floor(200 + Math.random() * 50);
+                    let new_apple = {
+                        id: _this.apples.length,
+                        weight: weight,
+                        isEaten: false
+                    };
+                    _this.apples.push(new_apple);
+                    console.log('request采摘苹果id: '+new_apple.id);
+                }
+            };
+            request.onerror = function() {
+                xcsoft.error('request,没有摘到苹果，请检查网络问题！', 3000);
+            };
+            request.send(null);
+        }
+        this.isPicking = false;
+        this.buttonText = '摘苹果';
+    };
 
     /* 这里需要写成箭头函数的形式，这样此函数从父组件传递到子组件的时候才能调用成功*/
     @action eatApple = (appleId)=>{
