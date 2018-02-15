@@ -58,7 +58,7 @@ class appleStore {
 
         this.isPicking = true;
         this.buttonText = '正在采摘...';
-        let url = '../data/fetch_apple.json';
+        let url = 'https://caihenry.github.io/apple-basket-redux/data/fetch_apple.json';
         if(self.fetch) {
             // 使用 fetch 框架处理
             fetch(url)
@@ -93,6 +93,8 @@ class appleStore {
                     };
                     _this.apples.push(new_apple);
                     console.log('request采摘苹果id: '+new_apple.id);
+                } else {
+                    xcsoft.error('request error: ' + request.status + ', url: ' + request.url + '.');
                 }
             };
             request.onerror = function() {
