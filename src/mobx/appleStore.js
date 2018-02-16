@@ -1,4 +1,5 @@
 import {observable, computed, action, autorun} from 'mobx';
+import swal from 'sweetalert'
 import '../../lib/jquery.min'
 import '../../lib/jquery.xctips'
 import '../styles/jquery.xctips.css'
@@ -23,6 +24,7 @@ class appleStore {
         }
     ];
 
+    @observable max_count = 10;
     @observable isPicking = false;
     @observable buttonText = '摘苹果';
 
@@ -53,6 +55,11 @@ class appleStore {
         /** 如果正在摘苹果，则结束这个thunk, 不执行摘苹果 */
         if (this.isPicking) {
             console.log('正在采摘，结束这个thunk!');
+            return;
+        }
+
+        if (this.max_count < this.apples.length) {
+            xcsoft.error('已摘完所有苹果!', 3000);
             return;
         }
 
@@ -116,8 +123,18 @@ class appleStore {
                 return true;
             }
         });
-    }
+    };
 
+    showAbout = () => {
+        /* refer to https://sweetalert.js.org/guides/#getting-started */
+        swal({
+            title: '关于...',
+            text: '作者: Henry Cai\r\n电邮: imhenrycai@yahoo.com\r\n日期: 2018/02/16\r\n版本: v1.0',
+            //icon: 'success',
+            button: '关闭',
+            className: 'about'
+        });
+    }
 }
 
 export default appleStore;

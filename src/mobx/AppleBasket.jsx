@@ -28,7 +28,7 @@ class AppleBusket extends React.Component {
     }
 
     render(){
-        let { status, isPicking, buttonText, pickApple  } = this.props.store;
+        let { status, isPicking, buttonText, pickApple, showAbout  } = this.props.store;
         let {
             appleNow: {quantity:notEatenQuantity,weight:notEatenWeight},
             appleEaten: {quantity:EatenQuantity,weight:EatenWeight}
@@ -37,10 +37,8 @@ class AppleBusket extends React.Component {
 
         return (
             <div className="appleBusket">
-                <div className="title">苹果篮子</div>
-                <div className="btn-div">
-                    <button  className={isPicking ? 'disabled' : ''}
-                             onClick={() => pickApple() } >{buttonText}</button>
+                <div className="btn-title">
+                    <button title="单击显示关于" onClick={ () => showAbout() }>苹果篮子</button>
                 </div>
                 <div className="stats">
                     <div className="section">
@@ -49,11 +47,14 @@ class AppleBusket extends React.Component {
                         </div>
                     </div>
                     <div className="section">
-                        <div className="head">已吃掉</div>
+                        <div className="head">已吃</div>
                         <div className="content">{EatenQuantity}个苹果，{EatenWeight}克</div>
                     </div>
                 </div>
-
+                <div className="btn-div">
+                    <button title="单击摘苹果" className={isPicking ? 'disabled' : ''}
+                            onClick={() => pickApple() } >{buttonText}</button>
+                </div>
                 <div className="appleList">
                     { this.getAppleItem() }
                 </div>

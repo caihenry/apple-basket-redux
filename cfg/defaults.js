@@ -8,7 +8,7 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
-const dfltHost = '192.168.1.4';
+const dfltHost = '192.168.1.32';
 const dfltPort = 8000;
 
 /**

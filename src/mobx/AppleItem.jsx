@@ -2,13 +2,16 @@ import React from 'react';
 import '../styles/appleItem.scss';
 import {observer} from 'mobx-react';
 
-
 @observer
 class AppleItem extends React.Component {
 
-
     render() {
         let { apple, eatApple } = this.props;
+
+        let pad = (num, count) => {
+            let res = Array( count - ( '' + num ).length + 1 ).join( 0 ) + num;
+            return res;
+        };
 
         return (
             <div className="appleItem">
@@ -16,11 +19,11 @@ class AppleItem extends React.Component {
                     <img src={require('../images/apple.png')} alt="红富士" title="红富士"/>
                 </div>
                 <div className="info">
-                    <div className="name">红苹果 - { apple.id }号</div>
+                    <div className="name">红苹果 - { pad(apple.id, 2) }号</div>
                     <div className="weight">{ apple.weight }克</div>
                 </div>
                 <div className="btn-div">
-                    <button onClick={()=>eatApple(apple.id)}> 吃掉 </button>
+                    <button title="单击吃掉" onClick={()=>eatApple(apple.id)}> 吃掉 </button>
                 </div>
             </div>
         );
