@@ -7,10 +7,8 @@ class AppleItem extends React.Component {
 
     render() {
         let { apple, eatApple } = this.props;
-
         let pad = (num, count) => {
-            let res = Array( count - ( '' + num ).length + 1 ).join( 0 ) + num;
-            return res;
+            return new Array( count - ( '' + num ).length + 1 ).join( '0' ) + num;
         };
 
         return (

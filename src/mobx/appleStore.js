@@ -8,11 +8,6 @@ class appleStore {
 
     @observable apples = [
         {
-            id: 0,
-            weight: 233,
-            isEaten: false
-        },
-        {
             id: 1,
             weight: 235,
             isEaten: true
@@ -24,9 +19,9 @@ class appleStore {
         }
     ];
 
-    @observable max_count = 10;
     @observable isPicking = false;
     @observable buttonText = '摘苹果';
+    @observable max_apples = 99;
 
     /**  计算当前已吃和未吃苹果的状态 */
     @computed get status(){
@@ -58,8 +53,13 @@ class appleStore {
             return;
         }
 
-        if (this.max_count < this.apples.length) {
-            xcsoft.error('已摘完所有苹果!', 3000);
+        if (this.status['appleNow'].quantity >= 10) {
+            xcsoft.error('去库存！请吃苹果!', 3000);
+            return;
+        }
+
+        if (this.apples.length >= this.max_apples) {
+            xcsoft.error('已没有更多苹果可摘！', 3000);
             return;
         }
 
@@ -73,7 +73,7 @@ class appleStore {
                     /* 这里只是确保接口是通的，至于数据还是自己mock */
                     let weight = Math.floor(200 + Math.random() * 50);
                     let new_apple = {
-                        id: this.apples.length,
+                        id: this.apples.length + 1,
                         weight: weight,
                         isEaten: false
                     };
@@ -128,8 +128,8 @@ class appleStore {
     showAbout = () => {
         /* refer to https://sweetalert.js.org/guides/#getting-started */
         swal({
-            title: '关于...',
-            text: '作者: Henry Cai\r\n电邮: imhenrycai@yahoo.com\r\n日期: 2018/02/16\r\n版本: v1.0',
+            title: '关于苹果篮子',
+            text: '声明： forked from https://github.com/ckinmind/apple-basket-redux\n作者:  ckinmind&Henry Cai\r\n电邮: imhenrycai@yahoo.com\r\n日期: 2018/02/16\r\n版本: v1.0',
             //icon: 'success',
             button: '关闭',
             className: 'about'
